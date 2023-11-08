@@ -16,7 +16,11 @@ class Play extends Phaser.Scene {
 
     create() {
         //place tile sprite
-        this.background = this.add.tileSprite(0, 0, 250, 180, 'background').setOrigin(0,0);
+        this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
+        //let scaleX = this.cameras.main.width / image.width
+       // let scaleY = this.cameras.main.height / image.height
+        //let scale = Math.max(scaleX, scaleY)
+        //image.setScale(scale).setScrollFactor(0)
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0,0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize,
@@ -33,15 +37,19 @@ class Play extends Phaser.Scene {
 
 
         //add predator
-        this.player = new Player(this, game.config.width + borderUISize*6, borderUISize*4,
-            'predator', 0, 30).setOrigin(0, 0);
+        this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*9,
+            'predator', 0, 40).setOrigin(0, 0);
             //(scene, x, y, texture, frame, position)
 
+        this.player.setScale(2)
         //animation config
         this.anims.create({
             key: 'playRun',
-            frames: this.anims.generateFrameNumbers('predator', {start: 6, end: 8, first: 6}),
-            frameRate: 30
+            frameRate: 12,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('predator', {
+                frames: [6, 6, 7, 8, 8, 7]
+            }),
         });
 
         //initialize score
@@ -71,6 +79,7 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyJUMP)) {
             this.scene.restart();
         }
+        this.player.anims.play('playRun')
         //if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
         //    this.scene.start("menuScene");
         //}
@@ -82,10 +91,12 @@ class Play extends Phaser.Scene {
             //this.ship03.update();
         //}
         //check collision
-        //if(this.checkCollision(this.player, this.object)) {
-        //    this.p1Rocket.reset();
-        //    this.shipExplode(this.ship03);
-        //}
+        if(this.checkCollision(this.player, this.object)) {
+            this.gameOver = true;
+            this.player.reset();
+        }
+
+        //
     }
 
 
