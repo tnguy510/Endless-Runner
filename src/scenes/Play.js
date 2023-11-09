@@ -11,16 +11,13 @@ class Play extends Phaser.Scene {
         this.load.image('background', './assets/background.png');
         //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth:64, frameHeight: 32,
         //startFrame: 0, endFrame: 9});
+        this.load.image('dresser', './assets/dresser placeholder.png')
 
     }
 
     create() {
         //place tile sprite
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
-        //let scaleX = this.cameras.main.width / image.width
-       // let scaleY = this.cameras.main.height / image.height
-        //let scale = Math.max(scaleX, scaleY)
-        //image.setScale(scale).setScrollFactor(0)
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0,0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize,
@@ -51,6 +48,9 @@ class Play extends Phaser.Scene {
                 frames: [6, 6, 7, 8, 8, 7]
             }),
         });
+
+        this.object = new Object(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
+        //scene, x, y, texture, frame, position
 
         //initialize score
         this.p1Score = 0;
@@ -93,11 +93,22 @@ class Play extends Phaser.Scene {
         //check collision
         if(this.checkCollision(this.player, this.object)) {
             this.gameOver = true;
-            this.player.reset();
+            //this.player.reset();
         }
 
         //
     }
 
+    checkCollision(player, object){
+        //simple AABB checking
+        if (player.x < object.x + object.width &&
+            player.x + player.width > object.x &&
+            player.y < object.y + object.height &&
+            player.height + player.y > object.y){
+                return true;
+            } else {
+                return false;
+            }
+    }
 
  }
