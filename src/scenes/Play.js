@@ -3,18 +3,6 @@ class Play extends Phaser.Scene {
         super("playScene");
     }
 
-    preload(){
-        //load images/tile sprites
-        this.load.spritesheet('predator', './assets/Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
-        startFrame: 0, endframe: 11});
-        //this.load.image('spaceship', './assets/spaceship.png');
-        this.load.image('background', './assets/background.png');
-        //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth:64, frameHeight: 32,
-        //startFrame: 0, endFrame: 9});
-        this.load.image('dresser', './assets/dresser placeholder.png')
-
-    }
-
     create() {
         //place tile sprite
         this.background = this.add.tileSprite(0, 0, game.config.width, game.config.height, 'background').setOrigin(0,0);
@@ -91,7 +79,7 @@ class Play extends Phaser.Scene {
             //this.ship03.update();
         //}
         //check collision
-        if(this.checkCollision(this.player, this.object)) {
+        if(this.physics.overlap(this.player, this.object)) {
             this.gameOver = true;
             //this.player.reset();
         }
