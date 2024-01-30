@@ -13,10 +13,12 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height,
             0xFFFFFF).setOrigin(0, 0);
+        
         //  add prey (runner)
         //this.prey = new Runner(this, game.config.width/2, game.config.height - borderUISize -
         //borderPadding, 'runner').setOrigin(0.5,0);
         // define keys
+        
         keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
@@ -27,18 +29,11 @@ class Play extends Phaser.Scene {
             //(scene, x, y, texture, frame, position)
 
         this.player.setScale(2)
-        //animation config
-        this.anims.create({
-            key: 'playRun',
-            frameRate: 12,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('predator', {
-                frames: [6, 6, 7, 8, 8, 7]
-            }),
-        });
 
         this.object = new Object(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
         //scene, x, y, texture, frame, position
+
+        this.physics.add.collider(this.player, this.object, this.handleCollision, null, this)
 
         //initialize score
         this.p1Score = 0;
@@ -58,8 +53,6 @@ class Play extends Phaser.Scene {
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2,
             this.p1Score, scoreConfig);
 
-        //GAME OVER flag
-        this.gameOver = false;
     }
 
     update() {
@@ -67,7 +60,6 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyJUMP)) {
             this.scene.restart();
         }
-        this.player.anims.play('playRun')
         //if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
         //    this.scene.start("menuScene");
         //}
@@ -78,25 +70,12 @@ class Play extends Phaser.Scene {
             //this.ship02.update();
             //this.ship03.update();
         //}
-        //check collision
-        if(this.physics.overlap(this.player, this.object)) {
-            this.gameOver = true;
-            //this.player.reset();
-        }
-
-        //
+        this.playerFSM.step()
     }
 
-    checkCollision(player, object){
-        //simple AABB checking
-        if (player.x < object.x + object.width &&
-            player.x + player.width > object.x &&
-            player.y < object.y + object.height &&
-            player.height + player.y > object.y){
-                return true;
-            } else {
-                return false;
-            }
+    handleCollision(player, object){
+        this.gameOver = true;
+
     }
 
  }
