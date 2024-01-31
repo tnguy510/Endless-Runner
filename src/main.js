@@ -1,5 +1,8 @@
-let config = {
-    type: Phaser.AUTO,
+'use strict'
+
+const config = {
+    parent: 'phaser-game',
+    type: Phaser.WEBGL, 
     width: 640,
     height: 480,
     pixelArt: true,
@@ -9,9 +12,10 @@ let config = {
             debug: true
         }
     },
-    scene: [Load, Play]
+    scene: [ Load, Play ]
 }
-let game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
+
 //set UI sizes
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;

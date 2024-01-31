@@ -19,14 +19,15 @@ class Play extends Phaser.Scene {
         //borderPadding, 'runner').setOrigin(0.5,0);
         // define keys
         
-        keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        // setup keyboard input
+        this.keys = this.input.keyboard.createCursorKeys()
+        //keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
 
         //add predator
-        this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*9,
-            'predator', 0, 40).setOrigin(0, 0);
-            //(scene, x, y, texture, frame, position)
+        this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*9, 'predator', 0, 40).setOrigin(0, 0);
+                                //(scene, x,                                y,              texture, frame, position)
 
         this.player.setScale(2)
 

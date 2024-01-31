@@ -23,7 +23,7 @@ class IdleState extends State {
 
     execute(scene, player) {
         // use destructuring to make a local copy of the keyboard object
-        const { space } = scene.keys
+        const { space, shift } = scene.keys
 
         // transition to dead if hit object
         if(gameOver == true) {
