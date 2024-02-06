@@ -6,6 +6,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         this.body.setSize(this.width /2 , this.height)
         this.x = position; 
+        this.ground = y
 
         scene.playerFSM = new StateMachine('idle', {
             idle: new IdleState(),
@@ -22,7 +23,7 @@ class IdleState extends State {
     }
 
     execute(scene, player) {
-        // use destructuring to make a local copy of the keyboard object
+        // use destructuring to make a local copy of the keyboard objectl
         const { space, shift } = scene.keys
 
         // transition to dead if hit object
@@ -31,8 +32,8 @@ class IdleState extends State {
             return
         }
 
-        // transition to swing if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space)) {
+        // transition to jump if pressing space
+        if(Phaser.Input.Keyboard.JustDown(space) && this.y == this.ground) {
             this.stateMachine.transition('jump')
             return
         }
@@ -42,8 +43,8 @@ class IdleState extends State {
 
 class JumpState extends State {
     enter(scene, player) {
-        player.y += 10
-        this.stateMachine.transition('jump')
+        player.setVelocityY(-330)
+        this.stateMachine.transition('idle')
     }
 }
 

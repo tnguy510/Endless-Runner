@@ -31,16 +31,19 @@ class Play extends Phaser.Scene {
 
         this.player.setScale(2)
 
-        this.object = new Object(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
+        console.log(this.player)
+
+        //this.object = new Object(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
         //scene, x, y, texture, frame, position
 
         this.physics.add.collider(this.player, this.object, this.handleCollision, null, this)
+        console.log(this.playerFSM)
 
         //initialize score
         this.p1Score = 0;
         //display score
         let scoreConfig = {
-            fontFamily: 'Spooky',
+            fontFamily: 'Helvetica',
             fontSize: '28px',
             backgroundColor: '#F3B141',
             color: '#843605',
@@ -65,17 +68,14 @@ class Play extends Phaser.Scene {
         //    this.scene.start("menuScene");
         //}
         this.background.tilePositionX -= 4;
-        //if (!this.gameOver) {
-          //  this.p1Rocket.update();
-            //this.ship01.update();
-            //this.ship02.update();
-            //this.ship03.update();
-        //}
-        this.playerFSM.step()
+        if(!gameOver){
+            this.playerFSM.step()
+            //this.runner.step()
+        }
     }
 
     handleCollision(player, object){
-        this.gameOver = true;
+        gameOver = true;
 
     }
 
