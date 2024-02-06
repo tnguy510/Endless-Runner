@@ -8,6 +8,7 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('predator', './assets/Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
         startFrame: 0, endframe: 11});
         this.load.image('background', './assets/background.png');
+        this.load.image('floor', './assets/bg_floor.png');
         this.load.image('dresser', './assets/dresser placeholder.png')
 
     }
