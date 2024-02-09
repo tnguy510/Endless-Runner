@@ -20,7 +20,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 class IdleState extends State {
     enter(scene, player) {
         player.anims.play('playRun')
-        player.anims.stop()
     }
 
     execute(scene, player) {
@@ -33,8 +32,8 @@ class IdleState extends State {
             return
         }
 
-        // transition to jump if pressing space
-        if(Phaser.Input.Keyboard.JustDown(space) && this.y == this.ground) {
+        // transition to jump if pressing space and on ground
+        if(Phaser.Input.Keyboard.JustDown(space) && player.body.touching.down) {
             this.stateMachine.transition('jump')
             return
         }
@@ -44,8 +43,7 @@ class IdleState extends State {
 
 class JumpState extends State {
     enter(scene, player) {
-        player.setVelocityY(-30)
-
+        player.setVelocityY(-100)
         this.stateMachine.transition('idle')
     }
 }

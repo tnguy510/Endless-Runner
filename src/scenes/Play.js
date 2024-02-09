@@ -9,6 +9,8 @@ class Play extends Phaser.Scene {
         this.floor = this.physics.add.sprite(0, 0, 'floor').setOrigin(0,0);
         this.floor.setSize(game.config.width, game.config.height / 8)
         this.floor.setOffset(0, game.config.height / 1.1)
+        this.floor.body.setImmovable(true)
+
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0,0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize,
@@ -32,10 +34,10 @@ class Play extends Phaser.Scene {
         this.player.setScale(2)
 
         this.projectile = new Projectile(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
-        //scene, x, y, texture, frame, position
 
-        this.physics.add.collider(this.player, this.projectile, this.handleCollision, null, this)
-        this.physics.add.collider(this.player, this.projectile, this.handleCollision, null, this)
+        this.physics.add.collider(this.player, this.projectile, this.damageCollision, null, this)
+            //simple collider that stops player from overlapping with floor
+        this.physics.add.collider(this.player, this.floor)
 
         //initialize score
         this.p1Score = 0;
@@ -72,7 +74,7 @@ class Play extends Phaser.Scene {
         }
     }
 
-    handleCollision(player, object){
+    damangeCollision(player, projectile){
         gameOver = true;
 
     }
