@@ -19,43 +19,34 @@ class Play extends Phaser.Scene {
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height,
             0xFFFFFF).setOrigin(0, 0);
         
-        //  add prey (runner)
-        //this.prey = new Runner(this, game.config.width/2, game.config.height - borderUISize -
-        //borderPadding, 'runner').setOrigin(0.5,0);
-        // define keys
-        
         // setup keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
         //keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         //keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
         //add predator
-        this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*9, 'predator', 0, 40).setOrigin(0, 0);
-        this.player.setScale(2)
+        this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*7, 'predator', 0, 40).setOrigin(0, 0);
+        this.player.setScale(3)
 
-        this.projectile = new Projectile(this, game-config.width + borderUISize, borderUISize*9, 'dresser', 0).setOrigin(0, 0);
+        this.projectile = new Projectile(this, game.config.width * 8 / 10, game.config.height * 4 / 5, 'dresser', 0)//.setOrigin(0, 0);
+        this.projectile.setScale(0.5)
+
+        // add prey (runner)
+        this.prey = new Runner(this, game.config.width/2, game.config.height - borderUISize -
+        borderPadding, 'runner').setOrigin(0.5,0);
+        this.prey.setScale(0.5)
 
         this.physics.add.collider(this.player, this.projectile, this.damageCollision, null, this)
             //simple collider that stops player from overlapping with floor
         this.physics.add.collider(this.player, this.floor)
+        this.physics.add.collider(this.projectile, this.floor)
 
         //initialize score
         this.p1Score = 0;
-        //display score
-        let scoreConfig = {
-            fontFamily: 'Helvetica',
-            fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
-            align: 'right',
-            padding: {
-                top: 5,
-                bottom: 5,
-            },
-            fixedWidth: 100
-        }
+
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2,
             this.p1Score, scoreConfig);
+        console.log(gameOver)
 
     }
 
@@ -65,7 +56,7 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
         //if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-        //    this.scene.start("menuScene");
+        //   this.scene.start("menuScene");
         //}
         this.background.tilePositionX -= 4;
         if(!gameOver){
@@ -74,9 +65,13 @@ class Play extends Phaser.Scene {
         }
     }
 
-    damangeCollision(player, projectile){
+    damageCollision(player, projectile){
         gameOver = true;
-
+        console.log(gameOver)
+        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
+        scoreConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu',
+        scoreConfig).setOrigin(0.5);
     }
 
  }

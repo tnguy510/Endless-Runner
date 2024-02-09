@@ -23,3 +23,17 @@ let borderPadding = borderUISize / 3;
 let keyJUMP, keyDOWN;
 //GAME OVER flag
 let gameOver = false;
+
+//display score
+let scoreConfig = {
+    fontFamily: 'Helvetica',
+    fontSize: '28px',
+    backgroundColor: '#F3B141',
+    color: '#843605',
+    align: 'right',
+    padding: {
+        top: 5,
+        bottom: 5,
+    },
+    fixedWidth: 100
+}
