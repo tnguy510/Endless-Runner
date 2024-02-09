@@ -7,6 +7,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(this.width /2 , this.height)
         this.x = position; 
         this.ground = y
+        this.setGravityY(50)
 
         scene.playerFSM = new StateMachine('idle', {
             idle: new IdleState(),
@@ -43,7 +44,8 @@ class IdleState extends State {
 
 class JumpState extends State {
     enter(scene, player) {
-        player.setVelocityY(-330)
+        player.setVelocityY(-30)
+
         this.stateMachine.transition('idle')
     }
 }
