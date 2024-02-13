@@ -25,6 +25,24 @@ class Load extends Phaser.Scene {
                 frames: [6, 6, 7, 8, 8, 7]
             }),
         });
+
+        this.anims.create({
+            key: 'runRun',
+            frameRate: 12,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('runner', {
+                frames: [0, 0, 1, 1, 1, 0]
+            }),
+        });
+
+        this.anims.create({
+            key: 'runAttack',
+            frameRate: 12,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('runner', {
+                frames: [3, 3, 4, 4, 4, 3]
+            }),
+        });
     }
 
     update(){

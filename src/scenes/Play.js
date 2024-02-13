@@ -10,14 +10,6 @@ class Play extends Phaser.Scene {
         this.floor.setSize(game.config.width, game.config.height / 8)
         this.floor.setOffset(0, game.config.height / 1.1)
         this.floor.body.setImmovable(true)
-
-        // white borders
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0,0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize,
-            0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height,
-            0xFFFFFF).setOrigin(0, 0);
         
         // setup keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
@@ -32,9 +24,16 @@ class Play extends Phaser.Scene {
         this.projectile.setScale(0.5)
 
         // add prey (runner)
-        this.prey = new Runner(this, game.config.width/2, game.config.height - borderUISize -
-        borderPadding, 'runner').setOrigin(0.5,0);
-        this.prey.setScale(0.5)
+        this.runner = new Runner(this, 480, 480, 'runner', 0)
+        //this.prey.setScale()
+
+        // white borders
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0,0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize,
+            0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height,
+            0xFFFFFF).setOrigin(0, 0);
 
         this.physics.add.collider(this.player, this.projectile, this.damageCollision, null, this)
             //simple collider that stops player from overlapping with floor
@@ -61,12 +60,13 @@ class Play extends Phaser.Scene {
         this.background.tilePositionX -= 4;
         if(!gameOver){
             this.playerFSM.step()
-            //this.runner.step()
+            this.runnerFSM.step()
         }
     }
 
     damageCollision(player, projectile){
         gameOver = true;
+        this.playerFSM.step()
         console.log(gameOver)
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
         scoreConfig).setOrigin(0.5);

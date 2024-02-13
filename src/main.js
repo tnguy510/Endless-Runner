@@ -3,8 +3,8 @@
 const config = {
     parent: 'phaser-game',
     type: Phaser.WEBGL, 
-    width: 640,
-    height: 480,
+    width: 840,
+    height: 680,
     pixelArt: true,
     physics: {
         default: "arcade",

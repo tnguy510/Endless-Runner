@@ -10,10 +10,10 @@ class Projectile extends Phaser.GameObjects.Sprite {
         //this.body.setDamping(0.5).setDrag(0.5)
     }
     update() {
-        this.x -= this.moveSpeed;
+        //this.x -= this.moveSpeed;
         //wrap around from left edge to right edge
-        if(this.x <= 0 - this.width) {
-            this.x = game.config.width;
-        }
+        //if(this.x <= 0 - this.width) {
+        //    this.x = game.config.width;
+        //}
     }
 }
