@@ -4,7 +4,7 @@ class Runner extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this)
         this.x = x
-        this.attackTimer = 300  
+        this.attackTimer = 3000  
 
         scene.runnerFSM = new StateMachine('idle', {
             idle: new RunnerIdle(),
@@ -31,15 +31,16 @@ class RunnerIdle extends State {
 class RunnerAttack extends State {
     enter(scene, runner) {
         runner.anims.play('runAttack')
-        runner.anims.stop()
-        //this.stateMachine.transition('idle')
+        //runner.anims.stop()
+        //setGravity(scene, scene.projectile, game.config.width * 8 / 10, game.config.height * 4 / 5)
         scene.time.delayedCall(runner.attackTimer, () => {
             this.stateMachine.transition('idle')
         })
     }
 
     execute(scene, runner){
-        scene.projectile.position = 480//number here
+        setGravity(scene, scene.projectile, game.config.width * 8 / 10, game.config.height * 4 / 5)
+        
     }
 
 

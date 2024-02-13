@@ -20,7 +20,7 @@ class Play extends Phaser.Scene {
         this.player = new Player(this, game.config.width + borderUISize*2, borderUISize*7, 'predator', 0, 40).setOrigin(0, 0);
         this.player.setScale(3)
 
-        this.projectile = new Projectile(this, game.config.width * 8 / 10, game.config.height * 4 / 5, 'dresser', 0)//.setOrigin(0, 0);
+        this.projectile = new Projectile(this, 0, 0, 'dresser', 0)//.setOrigin(0, 0);
         this.projectile.setScale(0.5)
 
         // add prey (runner)
