@@ -4,14 +4,17 @@ class Load extends Phaser.Scene {
     }
 
     preload(){
+        this.load.path = './assets/'
         //load images/tile sprites
-        this.load.spritesheet('predator', './assets/Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
+        this.load.spritesheet('predator', 'Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
         startFrame: 0, endframe: 11});
-        this.load.image('background', './assets/background.png');
-        this.load.image('floor', './assets/bg_floor.png');
-        this.load.image('dresser', './assets/dresser placeholder.png')
-        this.load.spritesheet('runner', './assets/runner placeholder.png', {frameWidth: 48, frameHeight: 60,
-        startFrame: 0, endframe: 2})
+        this.load.image('background', 'background.png');
+        this.load.image('floor', 'bg_floor.png');
+        this.load.image('vase', 'vase placeholder.png')
+        this.load.image('dresser', 'dresser placeholder.png')
+        this.load.spritesheet('runner', 'london_life_chr_gracie.png', {frameWidth: 48, frameHeight: 72,
+        startFrame: 0, endframe: 11})
+        this.load.audio('chase music', 'Endless Runner Theme.wav')
 
     }
 
@@ -19,7 +22,7 @@ class Load extends Phaser.Scene {
         //animation config
         this.anims.create({
             key: 'playRun',
-            frameRate: 12,
+            frameRate: 24,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('predator', {
                 frames: [6, 6, 7, 8, 8, 7]
@@ -27,20 +30,29 @@ class Load extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'runRun',
+            key: 'playDuck',
             frameRate: 12,
             repeat: -1,
+            frames: this.anims.generateFrameNumbers('predator', {
+                frames: [10, 11, 11, 10, 12, 12]
+            }),
+        });
+
+        this.anims.create({
+            key: 'runRun',
+            frameRate: 24,
+            repeat: -1,
             frames: this.anims.generateFrameNumbers('runner', {
-                frames: [0, 0, 1, 1, 1, 0]
+                frames: [6, 6, 7, 8, 8, 7]
             }),
         });
 
         this.anims.create({
             key: 'runAttack',
-            frameRate: 12,
+            frameRate: 16,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('runner', {
-                frames: [3, 3, 4, 4, 4, 3]
+                frames: [3, 3, 4, 4, 4, 5, 3]
             }),
         });
     }

@@ -8,10 +8,10 @@ class Projectile extends Phaser.GameObjects.Sprite {
     }
 }
 
-function setGravity(scene, projectile, x, y){
-    projectile.x = x
-    projectile.y = y
+function setGravity(scene, projectile, velocity, bounce){
+    projectile.x = game.config.width * 8 / 10
+    projectile.y = game.config.height * 4 / 5
     projectile.body.setGravityY(50)
-    projectile.body.setVelocity(-100)
-    projectile.body.setBounce(0.5)
+    projectile.body.setVelocityX(velocity)
+    projectile.body.setBounce(bounce)
 }

@@ -1,17 +1,17 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, texture, frame, position) {
+    constructor(scene, x, y, texture, frame) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         scene.physics.add.existing(this)
 
-        this.body.setSize(this.width /2 , this.height)
-        this.x = position; 
-        this.ground = y
+        this.body.setSize(this.width /3 , this.height)
+        this.x = x; 
         this.setGravityY(500)
 
         scene.playerFSM = new StateMachine('idle', {
             idle: new IdleState(),
             jump: new JumpState(),
+            duck: new DuckState(),
             dead: new DeadState(),
         }, [scene, this]) 
     }
@@ -33,8 +33,12 @@ class IdleState extends State {
         }
 
         // transition to jump if pressing space and on ground
-        if(Phaser.Input.Keyboard.JustDown(space) && player.body.touching.down) {
+        if(Phaser.Input.Keyboard.JustDown(keyJUMP) && player.body.touching.down) {
             this.stateMachine.transition('jump')
+            return
+        }
+        if(Phaser.Input.Keyboard.JustDown(shift) && player.body.touching.down){
+            this.stateMachine.transition('duck')
             return
         }
 
@@ -44,6 +48,15 @@ class IdleState extends State {
 class JumpState extends State {
     enter(scene, player) {
         player.setVelocityY(-400)
+        this.stateMachine.transition('idle')
+    }
+}
+
+class DuckState extends State {
+    enter(scene, player) {
+        console.log("duck")
+        player.anims.stop()
+        player.anims.play('playDuck')
         this.stateMachine.transition('idle')
     }
 }
