@@ -19,6 +19,11 @@ class Load extends Phaser.Scene {
     }
 
     create(){
+        // define keys
+        keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+
         //animation config
         this.anims.create({
             key: 'playRun',
@@ -34,7 +39,7 @@ class Load extends Phaser.Scene {
             frameRate: 12,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('predator', {
-                frames: [10, 11, 11, 10, 12, 12]
+                frames: [10, 9, 9, 11, 11, 10]
             }),
         });
 

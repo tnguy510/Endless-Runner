@@ -12,7 +12,7 @@ const config = {
             debug: true
         }
     },
-    scene: [ Load, Play ]
+    scene: [ Load, Menu, Credits, Play ]
 }
 const game = new Phaser.Game(config);
 
@@ -20,13 +20,13 @@ const game = new Phaser.Game(config);
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 // reserve keyboard vars
-let keyJUMP, keyDOWN;
+let keyJUMP, keyDOWN, keyENTER;
 //GAME OVER flag
 let gameOver = false;
 
 //display score
 let scoreConfig = {
-    fontFamily: 'Helvetica',
+    fontFamily: 'Permanent Marker',
     fontSize: '28px',
     backgroundColor: '#F3B141',
     color: '#843605',
@@ -35,5 +35,16 @@ let scoreConfig = {
         top: 5,
         bottom: 5,
     },
-    fixedWidth: 100
+    fixedWidth: 500
+}
+
+let menuConfig = {
+    fontFamily: 'Permanent Marker',
+    fontSize: '48px',
+    color: '#FFFFFF',
+    align: 'middle',
+    padding: {
+        top: 5,
+        bottom: 5,
+    }
 }

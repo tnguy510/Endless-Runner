@@ -18,8 +18,7 @@ class Play extends Phaser.Scene {
         
         // setup keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
-        keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
 
         //add predator
         this.player = new Player(this, game.config.width / 3, borderUISize*7, 'predator', 0)
@@ -63,14 +62,16 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        if(this.damage >= 3){
+        if(this.damage >= 1){
             gameOver = true;
             this.playerFSM.step()
             this.runnerFSM.step()
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER',
-            scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press Space to Restart or <- for Menu',
-            scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width / 2, game.config.height/3, 'GAME OVER',
+            menuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2, 'Press Space to Restart',
+            menuConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'or Shift for Menu',
+            menuConfig).setOrigin(0.5);
         }
 
         if(this.projectiles.x == 0){
@@ -82,6 +83,9 @@ class Play extends Phaser.Scene {
           // check key input for restart
         if (gameOver && Phaser.Input.Keyboard.JustDown(keyJUMP)) {
             this.scene.restart();
+        }
+        if (gameOver && Phaser.Input.Keyboard.JustDown(keyDOWN)) {
+            this.scene.start("menuScene");
         }
         //if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
         //   this.scene.start("menuScene");

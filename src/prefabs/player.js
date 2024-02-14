@@ -54,9 +54,8 @@ class JumpState extends State {
 
 class DuckState extends State {
     enter(scene, player) {
-        console.log("duck")
-        player.anims.stop()
         player.anims.play('playDuck')
+        console.log("duck")
         this.stateMachine.transition('idle')
     }
 }
