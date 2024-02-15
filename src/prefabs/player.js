@@ -50,7 +50,7 @@ class IdleState extends State {
 class JumpState extends State {
     enter(scene, player) {
         scene.jumpSFX.play()
-        player.setVelocityY(-400)
+        player.setVelocityY(-500)
         this.stateMachine.transition('idle')
     }
 }

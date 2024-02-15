@@ -34,18 +34,18 @@ class Play extends Phaser.Scene {
 
 
         //add predator
-        this.player = new Player(this, game.config.width * 2 / 3, borderUISize*7, 'predator', 0)
-        this.player.setScale(3)
+        this.player = new Player(this, game.config.width / 3, borderUISize*7, 'predator', 0)
+        this.player.setScale(4)
 
-        this.dresser = new Projectile(this, 0, 0, 'dresser', 0)//.setOrigin(0, 0);
-        this.dresser.setScale(0.5)
+        this.dresser = new Projectile(this, -50, -50, 'dresser', 0)//.setOrigin(0, 0);
+        this.dresser.setScale(0.75)
 
         this.vase = new Projectile(this, 0, 0, 'vase', 0)
-        this.vase.setScale(0.3)
+        this.vase.setScale(0.5)
 
         // add prey (runner)
-        this.runner = new Runner(this, game.config.width, game.config.height * 6 / 8, 'runner', 0)
-        this.runner.setScale(2)
+        this.runner = new Runner(this, game.config.width * 4 / 5, game.config.height * 6 / 8, 'runner', 0)
+        this.runner.setScale(3)
         this.attacktimerMax = 600
 
         this.projectiles = this.add.group([this.dresser, this.vase])
@@ -81,29 +81,11 @@ class Play extends Phaser.Scene {
             loop: true
         })
 
-        this.intro = false
         this.cameras.main.fadeIn(3000)
 
     }
 
     update() {
-        //intro cutscene
-        if(!this.intro){
-            this.player.setVelocityX(-100)
-            if(this.player.x < game.config.width / 3){
-                console.log("in")
-                this.player.setVelocityX(0)
-                this.player.x = game.config.width / 3
-            }
-            this.runner.setVelocityX(-500)
-            if(this.runner.x > game.config.width * 4 / 5){
-                this.runner.setVelocityX(0)
-                this.runner.x = game.config.width * 4 / 5
-            }
-            this.intro =  true
-        }
-        
-
         if(this.damage >= 3 && !gameOver){
             gameOver = true;
             if(highScore < this.score) {
