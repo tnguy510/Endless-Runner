@@ -7,7 +7,7 @@ class Runner extends Phaser.Physics.Arcade.Sprite  {
         this.body.setSize(this.width / 2, this.height)
         this.x = x
         this.attackTimer = 3000
-        this.setGravityY(500)
+        this.setGravityY(600)
         this.body.setOffset(20, 0)
 
         scene.runnerFSM = new StateMachine('idle', {

@@ -20,6 +20,10 @@ class Play extends Phaser.Scene {
             volume: 0.75
         })
         this.bgm.play()
+
+        this.jumpSFX = this.sound.add('jump')
+        this.damageSFX = this.sound.add('damage')
+        this.speedUpSFX = this.sound.add('levelUp')
         
         // setup keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
@@ -30,7 +34,7 @@ class Play extends Phaser.Scene {
 
 
         //add predator
-        this.player = new Player(this, game.config.width / 3, borderUISize*7, 'predator', 0)
+        this.player = new Player(this, game.config.width * 2 / 3, borderUISize*7, 'predator', 0)
         this.player.setScale(3)
 
         this.dresser = new Projectile(this, 0, 0, 'dresser', 0)//.setOrigin(0, 0);
@@ -40,7 +44,7 @@ class Play extends Phaser.Scene {
         this.vase.setScale(0.3)
 
         // add prey (runner)
-        this.runner = new Runner(this, game.config.width * 4 / 5, game.config.height * 6 / 8, 'runner', 0)
+        this.runner = new Runner(this, game.config.width, game.config.height * 6 / 8, 'runner', 0)
         this.runner.setScale(2)
         this.attacktimerMax = 600
 
@@ -77,10 +81,30 @@ class Play extends Phaser.Scene {
             loop: true
         })
 
+        this.intro = false
+        this.cameras.main.fadeIn(3000)
+
     }
 
     update() {
-        if(this.damage >= 1 && !gameOver){
+        //intro cutscene
+        if(!this.intro){
+            this.player.setVelocityX(-100)
+            if(this.player.x < game.config.width / 3){
+                console.log("in")
+                this.player.setVelocityX(0)
+                this.player.x = game.config.width / 3
+            }
+            this.runner.setVelocityX(-500)
+            if(this.runner.x > game.config.width * 4 / 5){
+                this.runner.setVelocityX(0)
+                this.runner.x = game.config.width * 4 / 5
+            }
+            this.intro =  true
+        }
+        
+
+        if(this.damage >= 3 && !gameOver){
             gameOver = true;
             if(highScore < this.score) {
                 highScore = this.score
@@ -118,6 +142,7 @@ class Play extends Phaser.Scene {
 
     damageCollision(player, projectile){
         this.damage++
+        this.damageSFX.play()
         this.playerFSM.step()
         player.setVelocity(-80)
         this.time.delayedCall(1000, () => {
@@ -131,10 +156,24 @@ class Play extends Phaser.Scene {
     
     speedUp(){
         this.score++
-        if(this.score % 5 == 0) {
-            //this.sound.play('clang', { volume: 0.5 })         // play clang to signal speed up
+        if(this.score % 10 == 0 && !gameOver) {
+            //Runner speedup Indicator
+            let speedUpText = this.add.text(this.runner.x - 64, this.runner.y - 128, 'Speed Up!', scoreConfig)
+            this.time.delayedCall(300, () => {
+                this.tweens.add({
+                    targets: speedUpText,
+                    alpha: 0,
+                    duration: 300,
+                    ease: 'Power2'
+                }, this);
+            })
+            this.speedUpSFX.play()
+            this.runner.setVelocityY(-200)
+            this.runner.anims.play('runAttack')
+
+
             if(this.runner.attackTimer >= this.attacktimerMax) {     // increase attack speed
-                this.runner.attackTimer -= 25
+                this.runner.attackTimer -= 50
             }
         }
     }

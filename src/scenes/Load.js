@@ -8,14 +8,22 @@ class Load extends Phaser.Scene {
         //load images/tile sprites
         this.load.spritesheet('predator', 'Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
         startFrame: 0, endframe: 11});
+        this.load.image('title face', 'title screen face.png')
         this.load.image('background', 'background.png');
         this.load.image('floorStatic', 'bg_floor.png');
         this.load.image('floorPillar', 'bg_floor_pillar.png');
-        this.load.image('vase', 'vase placeholder.png')
-        this.load.image('dresser', 'dresser placeholder.png')
+        this.load.image('vase', 'vase.png')
+        this.load.image('dresser', 'dresser.png')
         this.load.spritesheet('runner', 'london_life_chr_gracie.png', {frameWidth: 48, frameHeight: 72,
         startFrame: 0, endframe: 11})
+        
+        //load audio
         this.load.audio('chase music', 'Endless Runner Theme.wav')
+        this.load.audio('damage', 'explosion.wav')
+        this.load.audio('jump','jumpsfx.wav')
+        this.load.audio('levelUp', 'powerUp.wav')
+        this.load.audio('menuSFX', 'Start SFX.wav')
+        this.load.audio('walkingSFX', 'walking.wav')
 
     }
 

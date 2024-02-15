@@ -2,9 +2,6 @@
 
 //To Do before turn in 
 //Replace object placeholder art
-//Animate Gracie throw item with a texture atlas(leshylabs)
-//Make sure damage is set to 3
-//Add SFXs
 
 'use strict'
 
@@ -20,7 +17,7 @@ const config = {
             debug: true
         }
     },
-    scene: [ Load, Menu, Credits, Play ]
+    scene: [ Load, Credits, Menu, Play ]
 }
 const game = new Phaser.Game(config);
 
@@ -38,7 +35,7 @@ let scoreConfig = {
     fontFamily: 'Permanent Marker',
     fontSize: '28px',
     color: '#FFFFFF',
-    align: 'left',
+    align: 'middle',
     padding: {
         top: 5,
         bottom: 5,

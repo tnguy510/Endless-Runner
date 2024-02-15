@@ -20,11 +20,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
 class IdleState extends State {
     enter(scene, player) {
-        //if(player.height < player.originalheight){
-        //    console.log("height check")
-        //    player.body.setSize(player.width /3 , player.originalheight)
-        //player.body.setSize(player.width /3 , player.height)
-        //player.height = player.height
         player.anims.play('playRun')
     }
 
@@ -54,6 +49,7 @@ class IdleState extends State {
 
 class JumpState extends State {
     enter(scene, player) {
+        scene.jumpSFX.play()
         player.setVelocityY(-400)
         this.stateMachine.transition('idle')
     }
@@ -61,12 +57,10 @@ class JumpState extends State {
 
 class DuckState extends State {
     enter(scene, player) {
-            console.log("duck")
             player.anims.play('playDuck')
             player.body.setSize(player.width /3 , player.height /2)
             player.body.setOffset(player.width /3, player.height / 2)
         }
-        //player.body.setSize(player.width /3 , player.height)
     execute(scene, player){
         if(keySHIFT.isDown){
             return
