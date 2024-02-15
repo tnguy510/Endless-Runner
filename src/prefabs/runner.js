@@ -6,7 +6,7 @@ class Runner extends Phaser.Physics.Arcade.Sprite  {
         
         this.body.setSize(this.width / 2, this.height)
         this.x = x
-        this.attackTimer = 3000  
+        this.attackTimer = 3000
         this.setGravityY(500)
         this.body.setOffset(20, 0)
 
@@ -65,6 +65,5 @@ class RunnerAttack extends State {
 
 class RunnerDead extends State {
     enter(scene, runner) {
-        runner.anims.stop()
     }
 }

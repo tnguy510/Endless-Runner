@@ -1,3 +1,11 @@
+//Current Issues:
+
+//To Do before turn in 
+//Replace object placeholder art
+//Animate Gracie throw item with a texture atlas(leshylabs)
+//Make sure damage is set to 3
+//Add SFXs
+
 'use strict'
 
 const config = {
@@ -20,22 +28,21 @@ const game = new Phaser.Game(config);
 let borderUISize = game.config.height / 15;
 let borderPadding = borderUISize / 3;
 // reserve keyboard vars
-let keyJUMP, keyDOWN, keyENTER;
+var keyJUMP, keySHIFT, keyENTER, keyESC;
 //GAME OVER flag
 let gameOver = false;
+var highScore = 0
 
 //display score
 let scoreConfig = {
     fontFamily: 'Permanent Marker',
     fontSize: '28px',
-    backgroundColor: '#F3B141',
-    color: '#843605',
-    align: 'right',
+    color: '#FFFFFF',
+    align: 'left',
     padding: {
         top: 5,
         bottom: 5,
     },
-    fixedWidth: 500
 }
 
 let menuConfig = {

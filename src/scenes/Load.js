@@ -9,7 +9,8 @@ class Load extends Phaser.Scene {
         this.load.spritesheet('predator', 'Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
         startFrame: 0, endframe: 11});
         this.load.image('background', 'background.png');
-        this.load.image('floor', 'bg_floor.png');
+        this.load.image('floorStatic', 'bg_floor.png');
+        this.load.image('floorPillar', 'bg_floor_pillar.png');
         this.load.image('vase', 'vase placeholder.png')
         this.load.image('dresser', 'dresser placeholder.png')
         this.load.spritesheet('runner', 'london_life_chr_gracie.png', {frameWidth: 48, frameHeight: 72,
@@ -21,8 +22,9 @@ class Load extends Phaser.Scene {
     create(){
         // define keys
         keyJUMP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        keySHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
         //animation config
         this.anims.create({
@@ -36,7 +38,7 @@ class Load extends Phaser.Scene {
 
         this.anims.create({
             key: 'playDuck',
-            frameRate: 12,
+            frameRate: 24,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('predator', {
                 frames: [10, 9, 9, 11, 11, 10]
@@ -63,6 +65,6 @@ class Load extends Phaser.Scene {
     }
 
     update(){
-        this.scene.start("playScene");
+        this.scene.start("menuScene");
     }
 }
