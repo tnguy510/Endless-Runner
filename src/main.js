@@ -21,7 +21,7 @@ const config = {
     physics: {
         default: "arcade",
     },
-    scene: [ Load, Credits, Menu, Play ]
+    scene: [ Load, Menu, Credits, Play ]
 }
 const game = new Phaser.Game(config);
 
