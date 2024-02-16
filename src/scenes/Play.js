@@ -81,7 +81,7 @@ class Play extends Phaser.Scene {
             loop: true
         })
 
-        //this.cameras.main.fadeIn(3000)
+        this.cameras.main.fadeIn(3000)
 
     }
 
