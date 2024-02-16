@@ -6,7 +6,7 @@ class Load extends Phaser.Scene {
     preload(){
         this.load.path = './assets/'
         //load images/tile sprites
-        this.load.spritesheet('predator', 'Evil_Gracie_Sprite_sheet.png', {frameWidth:48, frameHeight: 72, 
+        this.load.spritesheet('predator', 'EvilGracie_Sheet.png', {frameWidth:48, frameHeight: 72, 
         startFrame: 0, endframe: 11});
         this.load.image('title face', 'title screen face.png')
         this.load.image('background', 'background.png');
